@@ -1,0 +1,32 @@
+.results{
+    text-align: center;
+    font-family: sans-serif;
+    padding: 30px;
+    
+    color:white;
+    border-radius: 20px;
+}
+.results .try-again{
+    background-color: transparent;
+    border: 1px solid white;
+    font-size: 20px;
+    padding: 13px 20px;
+    border-radius: 30px;
+    margin-top: 25px;
+    color: white;
+    cursor: pointer;
+    width: 250px;
+}
+.fadeUp{
+    animation:fadeUp .3s;
+}
+@keyframes fadeUp{
+    0%{
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

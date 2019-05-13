@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="20px" viewBox="0 0 26 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54 (76480) - https://sketchapp.com -->
+    <title>menu</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="Home" transform="translate(-18.000000, -68.000000)" stroke="#444444" stroke-width="2.5">
+            <g id="header-items" transform="translate(20.000000, 60.000000)">
+                <g id="menu" transform="translate(0.000000, 9.000000)">
+                    <path d="M0,1 L17.8095238,1" id="Line"></path>
+                    <path d="M4.19047619,9 L22,9" id="Line-Copy"></path>
+                    <path d="M0,17 L17.8095238,17" id="Line-Copy-2"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

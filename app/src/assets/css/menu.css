@@ -1,0 +1,27 @@
+.menu__container{
+    background: #FAFAFA;
+    width:100vw;
+    position:fixed;
+    bottom: 0;
+    padding:10px 40px;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin-bottom:0;
+    box-sizing:border-box;
+    
+}
+
+.menu__container li a {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+}
+.menu__container span{
+    display: block;
+}
+.menu__container img{
+    display: block;
+    padding-bottom:10px;
+}
