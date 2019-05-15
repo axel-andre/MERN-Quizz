@@ -24,7 +24,6 @@ class QuizzPage extends Component {
         await axios.get(url)
         .then((res)=>{
             data=res.data[0];
-            console.log(data[0]);
         })
         .catch(err=>console.log(err));
         this.setState({

@@ -18,10 +18,8 @@ const styles = {
 class AddQuizz extends Component {
 
     state = {
-        color: "red",
         status: "addAQuestion", // TODO definir le status comme initial
         name: null,
-        icon: null,
         keywords: [],
         questions: [
             {
@@ -36,6 +34,7 @@ class AddQuizz extends Component {
         currentQuestion: {
             question: null,
             txtAnswers: [],
+            solutions: [],
             points: 1
         }
 
@@ -61,8 +60,8 @@ class AddQuizz extends Component {
     }
     async submitQuizz(){
         let newQuizz = this.state;
-        newQuizz.delete(name);
-        newQuizz.delete(name);
+        delete(newQuizz.currentQuestion);
+        delete(newQuizz.name);
         await axios.post('/user', {
             firstName: 'Fred',
             lastName: 'Flintstone'
@@ -82,7 +81,6 @@ class AddQuizz extends Component {
     render() {
         // Shorthand to use states
         let q = this.state;
-        console.log("taille: ", q.questions.lenght);
         const questionsList = q.questions.map((q, index) => {
             return (
                 <div key={index}>
@@ -164,7 +162,6 @@ class AddQuizz extends Component {
             )
         }
         else if (q.status === "addAQuestion") {
-            console.log(q.currentQuestion.txtAnswers.length);
             return (
                 <div className="addAQuestion">
                     <h2>Question {q.questions.length + 1}</h2>

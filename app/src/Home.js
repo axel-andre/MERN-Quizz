@@ -16,7 +16,6 @@ class Home extends Component {
         await axios.get(url)
         .then((res)=>{
             data=res.data;
-            console.log(data);
         })
         .catch(err=>console.log(err));
         this.setState({quizzes:data,shownQuizzes:data});
@@ -25,7 +24,10 @@ class Home extends Component {
     filterList(e){
         let list = this.state.quizzes;
         let nameList = list.filter((i)=>{
-            return i.name.toLowerCase().search(e.target.value.toLowerCase())!== -1
+            if(i.name)
+                return i.name.toLowerCase().search(e.target.value.toLowerCase())!== -1
+            else
+                return false;
         });
         this.setState({shownQuizzes:nameList});
         let availablesKeywords = [nameList.map((e)=>{
@@ -34,7 +36,7 @@ class Home extends Component {
         })];
         availablesKeywords = [...availablesKeywords.flat(2)];
         availablesKeywords = [...new Set(availablesKeywords)]
-        console.log(availablesKeywords);
+        nameList.concat(list.map(e=>e.keywords.some(k=> availablesKeywords.includes)));
     }
     render(){
         if(this.state.quizzes && this.state.shownQuizzes){
