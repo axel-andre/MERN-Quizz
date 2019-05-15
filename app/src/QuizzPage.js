@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT } from './constants.js';
 import Results from './components/Results';
 import axios from 'axios';
+import Loader from './Loader';
+
 class QuizzPage extends Component {
 
     constructor(props) {
@@ -124,7 +126,7 @@ class QuizzPage extends Component {
             }
         }else{
             return(
-                <p>Loading...</p>
+                <Loader/>
             )
         }
 
