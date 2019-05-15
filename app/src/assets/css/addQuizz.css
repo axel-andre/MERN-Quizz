@@ -60,6 +60,7 @@ button.next-step{
     border-radius: 8px;
     font-weight: 400;
     font-family: sans-serif;
+    position: relative;
 }
 .questionIndex{
     display: block;

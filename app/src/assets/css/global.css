@@ -274,3 +274,16 @@ input#search-bar {
         opacity: 1;
     }
 }
+.deleteButton{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-color:red;
+    top: -15px;
+    right: -15px;
+    border-radius: 15px;
+    line-height: 31px;
+    color:white;
+    font-family: Raleway;
+    display: inline-block;
+}

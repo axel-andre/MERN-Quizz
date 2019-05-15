@@ -59,6 +59,26 @@ class AddQuizz extends Component {
         currentQuestion.txtAnswers = currentQuestion.txtAnswers.filter((element,index)=> index !== +e);
         this.setState({currentQuestion});
     }
+    async submitQuizz(){
+        let newQuizz = this.state;
+        newQuizz.delete(name);
+        newQuizz.delete(name);
+        await axios.post('/user', {
+            firstName: 'Fred',
+            lastName: 'Flintstone'
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+    addQuestion(){
+        let questions = this.state.questions;
+        questions.push(this.state.currentQuestion);
+        this.setState({questions});
+    }
     render() {
         // Shorthand to use states
         let q = this.state;
