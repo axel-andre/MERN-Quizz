@@ -62,9 +62,7 @@ class AddQuizz extends Component {
         let newQuizz = this.state;
         delete(newQuizz.currentQuestion);
         delete(newQuizz.name);
-        await axios.post('/user', {
-            firstName: 'Fred',
-            lastName: 'Flintstone'
+        await axios.post(`${HTTP_SERVER_PORT}`, {
           })
           .then(function (response) {
             console.log(response);

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import QuizzThumbnail from './components/QuizzThumbnail.js';
 import axios from 'axios';
 import {HTTP_SERVER_PORT} from './constants';
+import Lottie from 'react-lottie';
+//import * as animationData from 'https://assets5.lottiefiles.com/datafiles/kRbrlEbvgAezJ8q/data.json';
 
 
 
@@ -39,6 +41,21 @@ class Home extends Component {
         nameList.concat(list.map(e=>e.keywords.some(k=> availablesKeywords.includes)));
     }
     render(){
+
+        const buttonStyle = {
+            display: 'block',
+            margin: '10px auto'
+          };
+      
+          const defaultOptions = {
+            loop: true,
+            autoplay: true, 
+            animationData: animationData,
+            rendererSettings: {
+              preserveAspectRatio: 'xMidYMid slice'
+            }
+          };
+
         if(this.state.quizzes && this.state.shownQuizzes){
             const allQuizzes =  this.state.shownQuizzes.map(e => <QuizzThumbnail name={e.name} icon={e.icon} keywords={e.keywords}></QuizzThumbnail>)
             return (
@@ -61,7 +78,16 @@ class Home extends Component {
             );
         }else{
             return(
-                <p>Loading ...</p>
+                <div>
+                <Lottie options={defaultOptions}
+                        height={400}
+                        width={400}
+                        isStopped={this.state.isStopped}
+                        isPaused={this.state.isPaused}/>
+                <button style={buttonStyle} onClick={() => this.setState({isStopped: true})}>stop</button>
+                <button style={buttonStyle} onClick={() => this.setState({isStopped: false})}>play</button>
+                <button style={buttonStyle} onClick={() => this.setState({isPaused: !this.state.isPaused})}>pause</button>
+              </div>
             )
         }
 
