@@ -61,6 +61,11 @@ button.next-step{
     font-weight: 400;
     font-family: sans-serif;
     position: relative;
+    transition: .3s color, .3s background-color;
+}
+.questionListItem.good-one{
+    background-color: #3BE24A;
+    color:white;
 }
 .questionIndex{
     display: block;

@@ -14,12 +14,13 @@ class QuizzThumbnail extends Component {
         // Transformation des props en constantes pour plus de lisibilité
         const icon = this.props.icon;
         const name = this.props.name;
+        const slug = this.props.slug;
         const allKeywords = this.props.keywords.map(k => <QuizzTag name={k}/>);
         return (
-            <Link to={'/quizz/' + name} className="appear">
+            <Link to={'/quizz/' + slug} className="appear">
                 <div className="quizz-bloc">
-                    <img alt="" 
-                    src={this.insetIcon(icon)} />
+                    {/* <img alt="" 
+                    src={this.insetIcon(icon)} /> */}
                     <h>{name}</h>
                     <ul className="quizz-keywords">{allKeywords}</ul>
 

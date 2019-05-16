@@ -7,10 +7,10 @@ import Home from "./Home.js";
 import About from "./About.js"
 import Header from './components/Header'
 import Menu from './components/menu'
+import './assets/css/global.css';
 import './assets/css/header.css';
 import QuizzPage from "./QuizzPage.js"
 import AddQuizz from "./AddQuizz.js"
-import './assets/css/global.css';
 
 
 

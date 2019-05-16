@@ -70,7 +70,7 @@ router
 
     QuizzModel
     .find({
-      name: req.params.id   // search query
+      slug: req.params.id   // search query
     })
     .then(doc => {
       res.json(doc);
@@ -80,15 +80,18 @@ router
     })
     
   })
-  .get("/add-quizz",(req,res)=>{
-    let newQuizz = new QuizzModel(sluggedQuizz);
-      newQuizz.save()
-      .then(doc => {
-        res.json(doc)
-      })
-      .catch(err => {
-        res.json('error : '+ err)
-      })
+  .post("/add-quizz", (req,res)=>{
+    let quizz = req.body;
+    quizz.slug = slug(quizz.name,{lower:true});
+    let newQuizz = new QuizzModel(quizz);
+    newQuizz.save()
+    .then(doc => {
+      res.json(doc)
+    })
+    .catch(err => {
+      res.json('error : '+ err)
+    })
+    res.json(quizz);
   })
 
   

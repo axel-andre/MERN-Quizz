@@ -17,14 +17,18 @@ class QuizzPage extends Component {
             solutions: [],
             pointsAvailable: 0,
             score: 0,
-            //maxScore: maxScore
+            isAnswered: false,
+            isRight:false,
+            isClicking: null
         }
     }
     async componentDidMount(){
         let data = [];
         let url = `${HTTP_SERVER_PORT}quizz/${this.props.match.params.slug}`;
+        console.log(this.props.match.params.slug);
         await axios.get(url)
         .then((res)=>{
+            console.log(res.data[0]);
             data=res.data[0];
         })
         .catch(err=>console.log(err));
@@ -40,17 +44,28 @@ class QuizzPage extends Component {
     addPoint(event, solutionIndex) {
         const pointsEarned = this.state.pointsAvailable;
         if (this.state.solutions.includes(solutionIndex)) {
-            this.setState({ score: this.state.score + pointsEarned })
-            event.target.classList.add('good-one');
-        } else
-            event.target.classList.add('wrong-one');
+            this.setState({ 
+                score: this.state.score + pointsEarned,
+                isAnswered: true,
+                isClicking:solutionIndex,
+                isRight:true,
+            })
+        } else{
+            this.setState({ 
+                isClicking:solutionIndex,
+                isAnswered: true,
+                isRight:false
+             })
+        }
     }
     // Go to the next question
     nextQuestion(event, index) {
         this.addPoint(event, index);
         setTimeout(() => {
             this.setState(
-                { currentQuestion: this.state.currentQuestion + 1 }
+                { currentQuestion: this.state.currentQuestion + 1,
+                    isAnswered: false
+                 }
             )
             if (this.state.currentQuestion < this.state.maxQuestions - 1) {
                 this.loadSolutions(this.state.currentQuestion + 1);
@@ -95,7 +110,7 @@ class QuizzPage extends Component {
                 }
                 const tranformToText = (a, i) => {
                     return (
-                        <button className="appear" key={i} onTouchStart={e => this.nextQuestion(e, i)}>
+                        <button className={`apear ${this.state.isClicking == i ? (q.isAnswered ? (q.isRight ? 'good-one': 'wrong-one') : "" ) : ""}`} key={i} onTouchStart={e => this.nextQuestion(e, i)}>
                             {a}
                         </button>
                     )

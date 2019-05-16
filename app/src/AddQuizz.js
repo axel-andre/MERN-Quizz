@@ -18,15 +18,10 @@ const styles = {
 class AddQuizz extends Component {
 
     state = {
-        status: "addAQuestion", // TODO definir le status comme initial
+        status: "initial", // TODO definir le status comme initial
         name: null,
         keywords: [],
         questions: [
-            {
-                question: "Where is the France ?"
-            }, {
-                question: "Where is Me ?"
-            }
         ],
         published: true,
         ownerId: 1,
@@ -34,6 +29,7 @@ class AddQuizz extends Component {
         currentQuestion: {
             question: null,
             txtAnswers: [],
+            imgAnswers: [],
             solutions: [],
             points: 1
         }
@@ -57,24 +53,52 @@ class AddQuizz extends Component {
         let currentQuestion = this.state.currentQuestion;
         currentQuestion.txtAnswers = currentQuestion.txtAnswers.filter((element,index)=> index !== +e);
         this.setState({currentQuestion});
+        this.deleteAnswer(e);
+    }
+    deleteRealQuestion(e){
+        let questions = this.state.questions.filter((q,index)=> index != e );
+        this.setState({questions});
     }
     async submitQuizz(){
         let newQuizz = this.state;
         delete(newQuizz.currentQuestion);
-        delete(newQuizz.name);
-        await axios.post(`${HTTP_SERVER_PORT}`, {
-          })
+        delete(newQuizz.status);
+
+        await axios.post(`${HTTP_SERVER_PORT}add-quizz`,newQuizz)
           .then(function (response) {
-            console.log(response);
+            console.log(response.data);
           })
           .catch(function (error) {
             console.log(error);
           });
+          this.history.push('/new-location');
     }
     addQuestion(){
         let questions = this.state.questions;
         questions.push(this.state.currentQuestion);
-        this.setState({questions});
+        const currentQuestion = {
+            question: null,
+            txtAnswers: [],
+            solutions: [],
+            imgAnswers: [],
+            points: 1
+        }
+        this.setState({questions,currentQuestion});
+    }
+    addSolution(index){
+        let currentQuestion = this.state.currentQuestion;
+        if(currentQuestion.solutions.includes(index)){
+            this.deleteAnswer(index);
+        }else{
+            if(currentQuestion.solutions.length < currentQuestion.txtAnswers.length - 1)
+            currentQuestion.solutions.push(index);
+            this.setState({currentQuestion});
+        }
+    }
+    deleteAnswer(index){
+        let currentQuestion = this.state.currentQuestion;
+        currentQuestion.solutions = currentQuestion.solutions.filter(e=>  e != index);
+        this.setState({currentQuestion});
     }
     render() {
         // Shorthand to use states
@@ -83,13 +107,13 @@ class AddQuizz extends Component {
             return (
                 <div key={index}>
                     <span className="questionIndex">Question {index + 1}</span>
-                    <QuestionItem >{q.question}</QuestionItem>
+                    <QuestionItem deleteQuestion={id => this.deleteRealQuestion(index)}  >{q.question}</QuestionItem>
                 </div>
             )
         });
         const answersList = q.currentQuestion.txtAnswers.map((q, index) => {
             return (
-                <QuestionItem deleteQuestion={id => this.deleteQuestion(index)} id={index} key={index} >{q}</QuestionItem>
+                <QuestionItem status={this.state.currentQuestion.solutions.includes(index) ? "good-one" : ""} addSolution={id=>this.addSolution(index)} deleteQuestion={id => this.deleteQuestion(index)} id={index} key={index} >{q}</QuestionItem>
             )
         });
         const addQuestionButton = (
@@ -155,7 +179,7 @@ class AddQuizz extends Component {
                     <h2>{q.name}</h2>
                     {questionsList}
                     {addQuestionButton}
-                    <button className="next-step button" disabled={this.state.questions[0] ? false : true} onClick={e => this.setState({ status: "questionsList" })}>Valider le quizz</button>
+                    <button className="next-step button" disabled={this.state.questions[0] ? false : true} onClick={e => this.submitQuizz()}>Valider le quizz</button>
                 </div>
             )
         }
@@ -168,7 +192,8 @@ class AddQuizz extends Component {
                     {answersList}
                     {q.currentQuestion.txtAnswers.length < 4 && addAnwserButton}
                     <PointsInput downPoints={this.downPointsHandle} upPoints={this.upPointsHandle}>{q.currentQuestion.points}</PointsInput>
-                    <button disabled={!this.state.currentQuestion.question || !this.state.currentQuestion.txtAnswers.length} className="next-step button" onClick={e => this.setState({ status: "questionsList" })}>Étape suivante</button>
+                    { q.currentQuestion.txtAnswers.length && !q.currentQuestion.solutions.length ? <p className="selectWright" >Selectionnez les bonnes réponses</p> : ""}
+                    <button disabled={!this.state.currentQuestion.question || !this.state.currentQuestion.solutions.length} className="next-step button" onClick={e => {this.setState({ status: "questionsList" });this.addQuestion();}}>Étape suivante</button>
                 </div>
             )
 

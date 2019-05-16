@@ -70,6 +70,7 @@ input#search-bar {
     display: flex;
     flex-direction: column;
     text-align: center;
+    min-height: 88px;
     transition: .3s;
 }
 .quizz-bloc:active{
@@ -282,8 +283,17 @@ input#search-bar {
     top: -15px;
     right: -15px;
     border-radius: 15px;
-    line-height: 31px;
+    line-height: 29px;
     color:white;
+    border:5px solid white;
     font-family: Raleway;
     display: inline-block;
+    transition: transform .1s linear;
+}
+.deleteButton:active{
+    transform: scale(.9);
+}
+.selectWright{
+    text-align: center;
+    color:#949494;
 }

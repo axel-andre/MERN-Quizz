@@ -39,7 +39,7 @@ class Home extends Component {
     render(){
 
         if(this.state.quizzes && this.state.shownQuizzes){
-            const allQuizzes =  this.state.shownQuizzes.map(e => <QuizzThumbnail name={e.name} icon={e.icon} keywords={e.keywords}></QuizzThumbnail>)
+            const allQuizzes =  this.state.shownQuizzes.map(e => <QuizzThumbnail name={e.name} slug={e.slug} icon={e.icon} keywords={e.keywords}></QuizzThumbnail>)
             return (
                 <div>
                     <div className="Searchbar appear">
